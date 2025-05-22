@@ -2,232 +2,205 @@
   <ion-app>
     <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
-        <ion-content>
+        <ion-content class="mako-menu-background">
           <ion-list id="inbox-list">
-            <ion-list-header>Inbox</ion-list-header>
-            <ion-note>hi@ionicframework.com</ion-note>
-
-            <ion-menu-toggle :auto-hide="false" v-for="(p, i) in appPages" :key="i">
-              <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" :detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
-                <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
-                <ion-label>{{ p.title }}</ion-label>
+            <ion-list-header class="mako-menu-header">
+              <span class="mako-logo">FORO FINAL FANTASY</span>
+            </ion-list-header>
+            
+            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
+              <ion-item 
+                @click="selectedIndex = i" 
+                router-direction="root" 
+                :router-link="p.url" 
+                lines="none" 
+                detail="false" 
+                class="mako-menu-item"
+                :class="{ 'mako-menu-item-active': selectedIndex === i }">
+                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon" class="mako-menu-icon"></ion-icon>
+                <ion-label class="mako-menu-label">{{ p.title }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
-
-          <ion-list id="labels-list">
-            <ion-list-header>Labels</ion-list-header>
-
-            <ion-item v-for="(label, index) in labels" lines="none" :key="index">
-              <ion-icon aria-hidden="true" slot="start" :ios="bookmarkOutline" :md="bookmarkSharp"></ion-icon>
-              <ion-label>{{ label }}</ion-label>
-            </ion-item>
-          </ion-list>
         </ion-content>
       </ion-menu>
+      
       <ion-router-outlet id="main-content"></ion-router-outlet>
     </ion-split-pane>
   </ion-app>
 </template>
 
-<script setup lang="ts">
-import {
-  IonApp,
-  IonContent,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-  IonNote,
-  IonRouterOutlet,
-  IonSplitPane,
+<script>
+import { 
+  IonApp, 
+  IonContent, 
+  IonIcon, 
+  IonItem, 
+  IonLabel, 
+  IonList, 
+  IonListHeader, 
+  IonMenu, 
+  IonMenuToggle, 
+  IonNote, 
+  IonRouterOutlet, 
+  IonSplitPane 
 } from '@ionic/vue';
 import { ref } from 'vue';
-import {
-  archiveOutline,
-  archiveSharp,
-  bookmarkOutline,
-  bookmarkSharp,
-  heartOutline,
-  heartSharp,
-  mailOutline,
-  mailSharp,
-  paperPlaneOutline,
-  paperPlaneSharp,
-  trashOutline,
-  trashSharp,
-  warningOutline,
-  warningSharp,
+import { 
+  homeOutline, 
+  homeSharp, 
+  barChartOutline, 
+  barChartSharp, 
+  codeSlashOutline, 
+  codeSlashSharp, 
+  analyticsOutline, 
+  analyticsSharp 
 } from 'ionicons/icons';
 
-const selectedIndex = ref(0);
-const appPages = [
-  {
-    title: 'Inbox',
-    url: '/folder/Inbox',
-    iosIcon: mailOutline,
-    mdIcon: mailSharp,
+export default {
+  name: 'App',
+  components: {
+    IonApp, 
+    IonContent, 
+    IonIcon, 
+    IonItem, 
+    IonLabel, 
+    IonList, 
+    IonListHeader, 
+    IonMenu, 
+    IonMenuToggle, 
+    IonNote, 
+    IonRouterOutlet, 
+    IonSplitPane
   },
-  {
-    title: 'Outbox',
-    url: '/folder/Outbox',
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp,
-  },
-  {
-    title: 'Favorites',
-    url: '/folder/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp,
-  },
-  {
-    title: 'Archived',
-    url: '/folder/Archived',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp,
-  },
-  {
-    title: 'Trash',
-    url: '/folder/Trash',
-    iosIcon: trashOutline,
-    mdIcon: trashSharp,
-  },
-  {
-    title: 'Spam',
-    url: '/folder/Spam',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp,
-  },
-];
-const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-
-const path = window.location.pathname.split('folder/')[1];
-if (path !== undefined) {
-  selectedIndex.value = appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
-}
+  setup() {
+    const selectedIndex = ref(0);
+    const appPages = [
+      {
+        title: 'Resumen',
+        url: '/home',
+        iosIcon: homeOutline,
+        mdIcon: homeSharp
+      },
+      {
+        title: 'Métricas de Negocio',
+        url: '/business',
+        iosIcon: barChartOutline,
+        mdIcon: barChartSharp
+      },
+      {
+        title: 'Métricas Técnicas',
+        url: '/technical',
+        iosIcon: codeSlashOutline,
+        mdIcon: codeSlashSharp
+      },
+      {
+        title: 'Análisis Completo',
+        url: '/analytics',
+        iosIcon: analyticsOutline,
+        mdIcon: analyticsSharp
+      }
+    ];
+    
+    return {
+      selectedIndex,
+      appPages
+    }
+  }
+};
 </script>
 
 <style scoped>
-ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+/* Estilo Mako FFVII para el menú */
+.mako-menu-background {
+  --background: linear-gradient(160deg, var(--ff-mako-dark) 0%, #00264d 100%);
+  color: var(--ff-mako-steel);
 }
 
-ion-menu.md ion-content {
-  --padding-start: 8px;
-  --padding-end: 8px;
-  --padding-top: 20px;
-  --padding-bottom: 20px;
+.mako-menu-header {
+  background: rgba(0, 40, 80, 0.8);
+  padding: 20px 16px 10px;
+  border-bottom: 1px solid rgba(0, 162, 224, 0.3);
 }
 
-ion-menu.md ion-list {
-  padding: 20px 0;
+.mako-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ff-mako-gold);
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(0, 162, 224, 0.5);
 }
 
-ion-menu.md ion-note {
-  margin-bottom: 30px;
+.mako-subtitle {
+  color: var(--ff-mako-accent);
+  font-family: 'Cormorant', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
 
-ion-menu.md ion-list-header,
-ion-menu.md ion-note {
-  padding-left: 10px;
+#inbox-list {
+  background: transparent;
+  padding-top: 0;
 }
 
-ion-menu.md ion-list#inbox-list {
-  border-bottom: 1px solid var(--ion-background-color-step-150, #d7d8da);
+.mako-menu-item {
+  --background: transparent;
+  --color: var(--ff-mako-steel);
+  --padding-start: 20px;
+  --inner-padding-end: 20px;
+  margin: 6px 0;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
 }
 
-ion-menu.md ion-list#inbox-list ion-list-header {
-  font-size: 22px;
+.mako-menu-item-active {
+  --background: rgba(0, 162, 224, 0.1);
+  --color: white;
+  border-left-color: var(--ff-mako-accent);
+}
+
+.mako-menu-icon {
+  color: var(--ff-mako-core);
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.mako-menu-item-active .mako-menu-icon {
+  color: var(--ff-mako-accent);
+  transform: scale(1.1);
+}
+
+.mako-menu-label {
+  font-family: 'Cormorant', serif;
   font-weight: 600;
-
-  min-height: 20px;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
 }
 
-ion-menu.md ion-list#labels-list ion-list-header {
-  font-size: 16px;
-
-  margin-bottom: 18px;
-
-  color: #757575;
-
-  min-height: 26px;
+.mako-menu-item:hover:not(.mako-menu-item-active) {
+  --background: rgba(0, 162, 224, 0.05);
+  border-left-color: var(--ff-mako-core);
 }
 
-ion-menu.md ion-item {
-  --padding-start: 10px;
-  --padding-end: 10px;
-  border-radius: 4px;
+/* Efecto de brillo para el ítem activo */
+.mako-menu-item-active::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: var(--ff-mako-core);
+  box-shadow: 0 0 10px var(--ff-mako-core);
 }
 
-ion-menu.md ion-item.selected {
-  --background: rgba(var(--ion-color-primary-rgb), 0.14);
-}
-
-ion-menu.md ion-item.selected ion-icon {
-  color: var(--ion-color-primary);
-}
-
-ion-menu.md ion-item ion-icon {
-  color: #616e7e;
-}
-
-ion-menu.md ion-item ion-label {
-  font-weight: 500;
-}
-
-ion-menu.ios ion-content {
-  --padding-bottom: 20px;
-}
-
-ion-menu.ios ion-list {
-  padding: 20px 0 0 0;
-}
-
-ion-menu.ios ion-note {
-  line-height: 24px;
-  margin-bottom: 20px;
-}
-
-ion-menu.ios ion-item {
-  --padding-start: 16px;
-  --padding-end: 16px;
-  --min-height: 50px;
-}
-
-ion-menu.ios ion-item.selected ion-icon {
-  color: var(--ion-color-primary);
-}
-
-ion-menu.ios ion-item ion-icon {
-  font-size: 24px;
-  color: #73849a;
-}
-
-ion-menu.ios ion-list#labels-list ion-list-header {
-  margin-bottom: 8px;
-}
-
-ion-menu.ios ion-list-header,
-ion-menu.ios ion-note {
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-ion-menu.ios ion-note {
-  margin-bottom: 8px;
-}
-
-ion-note {
-  display: inline-block;
-  font-size: 16px;
-
-  color: var(--ion-color-medium-shade);
-}
-
-ion-item.selected {
-  --color: var(--ion-color-primary);
+/* Scrollbar estilo Mako */
+ion-content::part(scroll) {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ff-mako-core) var(--ff-mako-dark);
 }
 </style>

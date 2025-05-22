@@ -1,2 +1,178 @@
-/* For information on how to create your own theme, please see:
-http://ionicframework.com/docs/theming/ */
+/* Ionic Variables and Theming */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant:wght@400;600&display=swap');
+
+/** Paleta de colores Mako FFVII **/
+:root {
+  /* Colores principales */
+  --ff-mako-core: #00a2e0;       /* Azul brillante del Mako */
+  --ff-mako-dark: #003366;       /* Azul profundo */
+  --ff-mako-light: #66ccff;      /* Azul cristalino */
+  --ff-mako-accent: #00ff99;     /* Verde esmeralda */
+  --ff-mako-gold: #ffcc00;       /* Oro industrial */
+  --ff-mako-steel: #c0c0c0;      /* Plata metálica */
+  
+  /** Ionic Variables **/
+  --ion-color-primary: var(--ff-mako-core);
+  --ion-color-primary-rgb: 0, 162, 224;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade: #008fc7;
+  --ion-color-primary-tint: #1aabe3;
+
+  --ion-color-secondary: var(--ff-mako-accent);
+  --ion-color-secondary-rgb: 0, 255, 153;
+  --ion-color-secondary-contrast: #000000;
+  --ion-color-secondary-shade: #00e087;
+  --ion-color-secondary-tint: #1affa3;
+
+  --ion-color-tertiary: var(--ff-mako-steel);
+  --ion-color-tertiary-rgb: 192, 192, 192;
+  --ion-color-tertiary-contrast: #000000;
+  --ion-color-tertiary-shade: #a9a9a9;
+  --ion-color-tertiary-tint: #c6c6c6;
+
+  --ion-color-success: var(--ff-mako-accent);
+  --ion-color-success-rgb: 0, 255, 153;
+  --ion-color-success-contrast: #000000;
+  
+  --ion-color-warning: var(--ff-mako-gold);
+  --ion-color-warning-rgb: 255, 204, 0;
+  --ion-color-warning-contrast: #000000;
+
+  --ion-color-danger: #ff4d4d;
+  --ion-color-danger-rgb: 255, 77, 77;
+  
+  --ion-color-dark: var(--ff-mako-dark);
+  --ion-color-dark-rgb: 0, 51, 102;
+  
+  --ion-color-medium: #5a5a5a;
+  --ion-color-light: #f4f8ff;
+}
+
+/* Estructura principal */
+body, ion-app, ion-content {
+  --background: linear-gradient(135deg, var(--ff-mako-dark) 0%, #001a33 100%);
+  color: var(--ff-mako-steel);
+  font-family: 'Cormorant', serif;
+}
+
+/* Toolbar estilo reactor Mako */
+ion-toolbar {
+  --background: linear-gradient(90deg, var(--ff-mako-dark), var(--ff-mako-core));
+  --color: var(--ff-mako-gold);
+  font-family: 'Cinzel', serif;
+  border-bottom: 1px solid var(--ff-mako-accent);
+  box-shadow: 0 2px 15px rgba(0, 162, 224, 0.5);
+}
+
+ion-toolbar ion-title {
+  text-shadow: 0 0 10px var(--ff-mako-light);
+  letter-spacing: 1px;
+}
+
+/* Menú estilo Shinra */
+ion-menu {
+  --background: linear-gradient(160deg, #00264d 0%, var(--ff-mako-dark) 100%);
+  --width: 280px;
+  border-right: 1px solid var(--ff-mako-core);
+}
+
+ion-menu ion-item {
+  --background: transparent;
+  --color: var(--ff-mako-steel);
+  border-left: 4px solid transparent;
+  margin: 8px 0;
+}
+
+ion-menu ion-item.activated {
+  --background: rgba(0, 162, 224, 0.1);
+  border-left-color: var(--ff-mako-accent);
+  --color: white;
+}
+
+ion-menu ion-icon {
+  color: var(--ff-mako-core);
+}
+
+/* Botones estilo Mako */
+ion-button {
+  --background: var(--ff-mako-core);
+  --color: black;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 162, 224, 0.6);
+  transition: all 0.3s ease;
+}
+
+ion-button:hover {
+  --background: var(--ff-mako-accent);
+  transform: translateY(-2px);
+}
+
+/* Cards estilo placa metálica */
+.ff-card {
+  background: linear-gradient(145deg, #003366, #001a33);
+  border: 1px solid var(--ff-mako-core);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 162, 224, 0.3),
+              inset 0 0 10px rgba(0, 162, 224, 0.2);
+  color: var(--ff-mako-steel);
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Listas estilo panel de control */
+ion-list {
+  background: rgba(0, 51, 102, 0.6);
+  border: 1px solid var(--ff-mako-light);
+  border-radius: 8px;
+  box-shadow: inset 0 0 15px rgba(0, 162, 224, 0.2);
+}
+
+ion-item {
+  --background: transparent;
+  --color: var(--ff-mako-steel);
+  border-bottom: 1px solid rgba(0, 162, 224, 0.3);
+}
+
+/* Efectos especiales Mako */
+@keyframes mako-pulse {
+  0% { box-shadow: 0 0 5px var(--ff-mako-core); }
+  50% { box-shadow: 0 0 20px var(--ff-mako-accent); }
+  100% { box-shadow: 0 0 5px var(--ff-mako-core); }
+}
+
+.mako-glow {
+  animation: mako-pulse 3s infinite;
+}
+
+/* Scrollbar estilo energía Mako */
+ion-content::-webkit-scrollbar-thumb {
+  background: var(--ff-mako-core);
+  border-radius: 10px;
+}
+
+/* Footer estilo base Shinra */
+ion-footer {
+  background: linear-gradient(90deg, var(--ff-mako-dark), #001a33);
+  color: var(--ff-mako-steel);
+  border-top: 1px solid var(--ff-mako-core);
+  box-shadow: 0 -2px 15px rgba(0, 162, 224, 0.3);
+}
+
+/* Tipografía especial */
+.ff-title {
+  font-family: 'Cinzel', serif;
+  color: var(--ff-mako-light);
+  text-shadow: 0 0 8px var(--ff-mako-core);
+  border-bottom: 2px solid var(--ff-mako-accent);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Efecto de texto neón Mako */
+.neon-text {
+  text-shadow: 0 0 5px var(--ff-mako-core),
+               0 0 10px var(--ff-mako-core),
+               0 0 20px var(--ff-mako-light);
+}
